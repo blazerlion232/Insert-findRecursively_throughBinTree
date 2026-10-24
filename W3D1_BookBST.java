@@ -28,8 +28,24 @@ public class W3D1_BookBST {
     }
 
     private Node insertRecursive(Node current, Book book) {
-        // TODO: Implement the insert recursive logic.
-        return null; // Placeholder - replace with your implementation
+        if(current.element == null){
+            insert(book);
+        }
+        while(current.element != null){
+            if(book.getTitle().compareTo(current.element.getTitle()) < 0){
+                current = current.left;
+                insertRecursive(current, book);
+            } 
+            if(book.getTitle().compareTo(current.element.getTitle()) > 0){
+                current = current.right;
+                insertRecursive(current, book);
+            }
+            if(book.getTitle().compareTo(current.element.getTitle()) == 0){
+                throw new IllegalArgumentException("No dupes");
+            }  
+        }
+        current.element = book;
+        return null; // what should i return?
     }
 
     public boolean find(Book book) {
