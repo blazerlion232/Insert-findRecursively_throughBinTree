@@ -28,7 +28,7 @@ public class W3D1_BookBST {
     }
 
     private Node insertRecursive(Node current, Book book) {
-        if(current.element == null){
+        if(current == null){
             return new Node(book);
         }
 
