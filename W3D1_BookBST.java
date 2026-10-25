@@ -32,15 +32,15 @@ public class W3D1_BookBST {
             insert(book);
         }
         while(current.element != null){
-            if(book.getTitle().compareTo(current.element.getTitle()) < 0){
+            if(book.getTitle().compareToIgnoreCase(current.element.getTitle()) < 0){
                 current = current.left;
                 insertRecursive(current, book);
             } 
-            if(book.getTitle().compareTo(current.element.getTitle()) > 0){
+            if(book.getTitle().compareToIgnoreCase(current.element.getTitle()) > 0){
                 current = current.right;
                 insertRecursive(current, book);
             }
-            if(book.getTitle().compareTo(current.element.getTitle()) == 0){
+            if(book.getTitle().compareToIgnoreCase(current.element.getTitle()) == 0){
                 throw new IllegalArgumentException("No dupes");
             }  
         }
@@ -53,8 +53,26 @@ public class W3D1_BookBST {
     }
 
     private Node findRecursive(Node current, Book book) {
-        // TODO: Implement the find recursive logic.
-        return null; // Placeholder - replace with your implementation
+
+        while(current.element != book){
+
+            if(current.element == null){
+                System.out.println("Not in tree");
+                return null;
+            }
+
+            if(book.getTitle().compareToIgnoreCase(current.element.getTitle()) < 0){
+                current = current.left;
+                findRecursive(current, book);
+            }
+
+            if(book.getTitle().compareToIgnoreCase(current.element.getTitle()) > 0){
+                current = current.right;
+                findRecursive(current, book);
+            }
+        }
+
+        return current; // what should i return?
     }
 
     // Helper method to get the size of the tree
