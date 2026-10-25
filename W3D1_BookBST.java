@@ -29,23 +29,20 @@ public class W3D1_BookBST {
 
     private Node insertRecursive(Node current, Book book) {
         if(current.element == null){
-            insert(book);
+            return new Node(book);
         }
-        while(current.element != null){
-            if(book.getTitle().compareToIgnoreCase(current.element.getTitle()) < 0){
-                current = current.left;
-                insertRecursive(current, book);
-            } 
-            if(book.getTitle().compareToIgnoreCase(current.element.getTitle()) > 0){
-                current = current.right;
-                insertRecursive(current, book);
-            }
-            if(book.getTitle().compareToIgnoreCase(current.element.getTitle()) == 0){
-                throw new IllegalArgumentException("No dupes");
-            }  
+
+        int comparison = book.getTitle().compareToIgnoreCase(current.element.getTitle());
+       
+        if(comparison < 0){
+            current.left = insertRecursive(current.left, book);
+        }else if(comparison > 0){
+            current.right = insertRecursive(current.right, book);
+        } else {
+            throw new IllegalArgumentException("No dupes");
         }
-        current.element = book;
-        return null; // what should i return?
+
+        return current; // what should i return?
     }
 
     public boolean find(Book book) {
@@ -54,25 +51,19 @@ public class W3D1_BookBST {
 
     private Node findRecursive(Node current, Book book) {
 
-        while(current.element != book){
+       if(current == null){
+        return null;
+       }
+       int comparison = book.getTitle().compareToIgnoreCase(current.element.getTitle());
 
-            if(current.element == null){
-                System.out.println("Not in tree");
-                return null;
-            }
-
-            if(book.getTitle().compareToIgnoreCase(current.element.getTitle()) < 0){
-                current = current.left;
-                findRecursive(current, book);
-            }
-
-            if(book.getTitle().compareToIgnoreCase(current.element.getTitle()) > 0){
-                current = current.right;
-                findRecursive(current, book);
-            }
-        }
-
-        return current; // what should i return?
+       if(comparison == 0){
+        return current;
+       }
+       if(comparison < 0){
+        return findRecursive(current.left, book);
+       }else{
+        return findRecursive(current.right, book);
+       }
     }
 
     // Helper method to get the size of the tree
